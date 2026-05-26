@@ -162,71 +162,80 @@
   </div>
 
   <script>
-    function showMessage() {
+  let musicStarted = false;
 
-      document.getElementById('message').style.display = 'block';
-    
-      const music = document.getElementById('bgMusic');
-    
-      music.volume = 0.7;
-    
-      // posisi mulai
-      const startTime = 165;
-    
-      // posisi akhir
-      const endTime = 252;
-    
-      // set mulai lagu
+  function showMessage() {
+
+    document.getElementById('message').style.display = 'block';
+
+    const music = document.getElementById('bgMusic');
+
+    // biar tidak double play kalau tombol ditekan lagi
+    if (musicStarted) return;
+
+    musicStarted = true;
+
+    music.volume = 0.7;
+
+    // mulai & akhir lagu
+    const startTime = 165;
+    const endTime = 252;
+
+    // tunggu audio siap
+    music.addEventListener('loadedmetadata', () => {
+
       music.currentTime = startTime;
-    
-      // play
-      music.play().then(() => {
-    
-        console.log('Music started');
-    
-      }).catch((err) => {
-    
-        console.log(err);
-    
-        alert('Tap sekali lagi untuk memutar musik 🎶');
-    
-      });
-    
-      // looping custom
-      music.addEventListener('timeupdate', () => {
-    
-        if (music.currentTime >= endTime) {
-    
-          music.currentTime = startTime;
-    
-          music.play();
-    
-        }
-    
-      });
-    
-    }
 
-    function createFloatingEmoji() {
-      const emoji = document.createElement('div');
-      emoji.classList.add('floating');
+      music.play();
 
-      const icons = ['❤️', '🎉', '✨', '🎂', '🌸'];
-      emoji.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+    });
 
-      emoji.style.left = Math.random() * 100 + 'vw';
-      emoji.style.fontSize = (Math.random() * 20 + 20) + 'px';
-      emoji.style.animationDuration = (Math.random() * 5 + 4) + 's';
+    // paksa load audio dulu
+    music.load();
 
-      document.body.appendChild(emoji);
+    // looping custom
+    music.addEventListener('timeupdate', () => {
 
-      setTimeout(() => {
-        emoji.remove();
-      }, 9000);
-    }
+      if (music.currentTime >= endTime) {
 
-    setInterval(createFloatingEmoji, 500);
-  </script>
+        music.currentTime = startTime;
+
+        music.play();
+
+      }
+
+    });
+
+  }
+
+  function createFloatingEmoji() {
+
+    const emoji = document.createElement('div');
+
+    emoji.classList.add('floating');
+
+    const icons = ['❤️', '🎉', '✨', '🎂', '🌸'];
+
+    emoji.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+
+    emoji.style.left = Math.random() * 100 + 'vw';
+
+    emoji.style.fontSize = (Math.random() * 20 + 20) + 'px';
+
+    emoji.style.animationDuration = (Math.random() * 5 + 4) + 's';
+
+    document.body.appendChild(emoji);
+
+    setTimeout(() => {
+
+      emoji.remove();
+
+    }, 9000);
+
+  }
+
+  setInterval(createFloatingEmoji, 500);
+</script>
 
 </body>
 </html>
