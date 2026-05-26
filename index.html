@@ -163,17 +163,39 @@
 
   <script>
     function showMessage() {
+
       document.getElementById('message').style.display = 'block';
-
+    
       const music = document.getElementById('bgMusic');
-
-        music.volume = 0.7;
-
-        music.play().then(() => {
+    
+      music.volume = 0.7;
+    
+      // mulai dari detik ke-165
+      music.currentTime = 165;
+    
+      music.play().then(() => {
+    
         console.log('Music started');
-        }).catch((err) => {
+    
+      }).catch((err) => {
+    
         console.log(err);
-        });
+    
+        alert('Tap sekali lagi untuk memutar musik 🎶');
+    
+      });
+    
+      // loop sampai detik ke-252
+      music.addEventListener('timeupdate', () => {
+    
+        if (music.currentTime >= 252) {
+    
+          music.currentTime = 162;
+    
+        }
+    
+      });
+    
     }
 
     function createFloatingEmoji() {
