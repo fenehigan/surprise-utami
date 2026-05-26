@@ -154,7 +154,7 @@
         Musik romantis diputar otomatis 🎶
       </div>
 
-      <audio id="bgMusic" loop>
+      <audio id="bgMusic">
         <source src="surprise-utami.mp3" type="audio/mpeg">
         Browser kamu tidak mendukung audio.
       </audio>
@@ -170,9 +170,16 @@
     
       music.volume = 0.7;
     
-      // mulai dari detik ke-165
-      music.currentTime = 165;
+      // posisi mulai
+      const startTime = 165;
     
+      // posisi akhir
+      const endTime = 252;
+    
+      // set mulai lagu
+      music.currentTime = startTime;
+    
+      // play
       music.play().then(() => {
     
         console.log('Music started');
@@ -185,12 +192,14 @@
     
       });
     
-      // loop sampai detik ke-252
+      // looping custom
       music.addEventListener('timeupdate', () => {
     
-        if (music.currentTime >= 252) {
+        if (music.currentTime >= endTime) {
     
-          music.currentTime = 165;
+          music.currentTime = startTime;
+    
+          music.play();
     
         }
     
