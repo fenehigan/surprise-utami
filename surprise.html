@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Utami ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #ff9ecf, #ffd6ec, #fff0f7);
+      min-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: rgba(255,255,255,0.25);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      padding: 35px 25px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      animation: fadeIn 1.5s ease;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: 2.3rem;
+      color: #ff2e83;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      color: #444;
+      font-size: 1.1rem;
+      font-weight: 400;
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+
+    .heart {
+      font-size: 70px;
+      animation: pulse 1s infinite;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background: #ff2e83;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 999px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 5px 15px rgba(255,46,131,0.4);
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: #ff0f74;
+    }
+
+    .hidden-message {
+      margin-top: 25px;
+      font-size: 1rem;
+      color: #333;
+      line-height: 1.8;
+      display: none;
+      animation: fadeIn 1s ease;
+    }
+
+    .floating {
+      position: absolute;
+      color: rgba(255,255,255,0.8);
+      animation: floatUp linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(100vh) scale(0.5);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-120px) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    .music-note {
+      margin-top: 18px;
+      font-size: 0.85rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="heart">🎂</div>
+
+    <h1>Happy Birthday Utami ❤️</h1>
+
+    <h2>
+      Semoga semua hal baik selalu datang ke hidup kamu ✨<br>
+      Tetap jadi Utami yang ceria, kuat, dan selalu bikin hari jadi lebih indah.
+    </h2>
+
+    <button onclick="showMessage()">Klik Surprise 🎁</button>
+
+    <div class="hidden-message" id="message">
+      <p>
+        Selamat ulang tahun yaa 🎉<br><br>
+
+        Semoga panjang umur, sehat selalu, dimudahkan semua urusannya,
+        dan semua impian kamu bisa tercapai satu per satu 🤍<br><br>
+
+        Terima kasih sudah hadir dan menjadi seseorang yang spesial ✨<br>
+        Hari ini harus jadi hari yang penuh senyum untuk kamu 😊
+      </p>
+
+      <div class="music-note">
+        Musik romantis diputar otomatis 🎶
+      </div>
+
+      <audio id="bgMusic" loop>
+        <source src="surprise-utami.mp3" type="audio/mpeg">
+        Browser kamu tidak mendukung audio.
+      </audio>
+    </div>
+  </div>
+
+  <script>
+    function showMessage() {
+      document.getElementById('message').style.display = 'block';
+
+      const music = document.getElementById('bgMusic');
+
+        music.volume = 0.7;
+
+        music.play().then(() => {
+        console.log('Music started');
+        }).catch((err) => {
+        console.log(err);
+        });
+    }
+
+    function createFloatingEmoji() {
+      const emoji = document.createElement('div');
+      emoji.classList.add('floating');
+
+      const icons = ['❤️', '🎉', '✨', '🎂', '🌸'];
+      emoji.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+
+      emoji.style.left = Math.random() * 100 + 'vw';
+      emoji.style.fontSize = (Math.random() * 20 + 20) + 'px';
+      emoji.style.animationDuration = (Math.random() * 5 + 4) + 's';
+
+      document.body.appendChild(emoji);
+
+      setTimeout(() => {
+        emoji.remove();
+      }, 9000);
+    }
+
+    setInterval(createFloatingEmoji, 500);
+  </script>
+
+</body>
+</html>
